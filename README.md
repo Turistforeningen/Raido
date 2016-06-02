@@ -45,4 +45,4 @@ docker-compose run --rm node npm run lint
 ```
 
 
-## [MIT lisenced](https://github.com/Turistforeningen/Raidō/blob/master/LICENSE)
+## [MIT lisenced](https://github.com/Turistforeningen/Raido/blob/master/LICENSE)

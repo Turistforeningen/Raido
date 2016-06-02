@@ -11,13 +11,13 @@
   ],
   "scripts": {
     "codacy-coverage": "codacy-coverage",
-    "cover": "istanbul cover --report lcovonly ./node_modules/.bin/_mocha -- test/**",
+    "cover": "istanbul cover --report lcovonly ./node_modules/.bin/_mocha -- -r test/support/env test/**",
     "lint": "eslint index.js test/ lib/ controllers/",
     "nsp": "nsp check",
     "semantic-release": "semantic-release",
     "start": "supervisor index.js",
-    "test": "mocha -bc --check-leaks -R tap test/**",
-    "test:watch": "mocha -wbc --check-leaks -R progress test/**",
+    "test": "mocha -bc --check-leaks -R tap -r test/support/env test/**",
+    "test:watch": "mocha -wbc --check-leaks -R progress -r test/support/env test/**",
     "greenkeeper-postpublish": "greenkeeper-postpublish"
   },
   "repository": {

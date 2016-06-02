@@ -14,7 +14,6 @@ const express = require('express');
 const compression = require('compression');
 const responseTime = require('response-time');
 const corsHeaders = require('@starefossen/express-cors');
-const HttpError = require('@starefossen/http-error');
 
 const app = module.exports = express();
 const pg = require('./lib/pg');

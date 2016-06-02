@@ -7,10 +7,12 @@
 [![Node version](https://img.shields.io/node/v/raido.svg "Node version")](https://www.npmjs.com/package/raido)
 [![Dependency status](https://img.shields.io/david/Turistforeningen/Raido.svg "Dependency status")](https://david-dm.org/Turistforeningen/Raido)
 
-Microservice for shortest path routing on Norwegian trails. Raidō "ride,
-journey" is the reconstructed Proto-Germanic name of the r- rune of the Elder
-Futhark ᚱ. The name is attested for the same rune in all three rune poems, Old
-Norwegian Ræið Icelandic Reið, Anglo-Saxon Rad.
+Microservice for shortest path routing on Norwegian trails using [pgRouting](https://github.com/Starefossen/docker-pgrouting) and waymarked trails from the Norwegian Mapping Authority ([Kartverket](http://www.kartverket.no/en/Maps--Nautical-Charts/).
+
+The name Raidō means "ride, journey" in the runic alphabets is the reconstructed
+Proto-Germanic name of the r- rune of the Elder Futhark ᚱ. The name is attested
+for the same rune in all three rune poems, Old Norwegian Ræið Icelandic Reið,
+Anglo-Saxon Rad.
 
 > ᚱ Ræið kveða rossom væsta;
 > Reginn sló sværðet bæzta.

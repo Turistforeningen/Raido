@@ -20,7 +20,9 @@ describe('GET /routing', () => {
   const solrenningen = '6.13070,61.00885';
   const norddalen = '5.99652,61.01511';
 
-  it('returns route from Selhamar to Åsedalen', done => {
+  it('returns route from Selhamar to Åsedalen', function it(done) {
+    this.timeout(60000);
+
     app.get(`/api/v1/routing?coords=${selhamar},${åsedalen}`)
       .expect(200)
       .expect(nonEmptyGeometryCollection)
@@ -30,7 +32,9 @@ describe('GET /routing', () => {
       .end(done);
   });
 
-  it('returns route from Selhamar to Solrenningen', done => {
+  it('returns route from Selhamar to Solrenningen', function it(done) {
+    this.timeout(60000);
+
     app.get(`/api/v1/routing?coords=${selhamar},${solrenningen}`)
       .expect(200)
       .expect(nonEmptyGeometryCollection)
@@ -40,7 +44,9 @@ describe('GET /routing', () => {
       .end(done);
   });
 
-  it('returns route from Selhamar to Norddalen', done => {
+  it('returns route from Selhamar to Norddalen', function it(done) {
+    this.timeout(60000);
+
     app.get(`/api/v1/routing?coords=${selhamar},${norddalen}`)
       .expect(200)
       .expect(nonEmptyGeometryCollection)
@@ -50,7 +56,9 @@ describe('GET /routing', () => {
       .end(done);
   });
 
-  it('returns line whene no route endpoint is found', done => {
+  it('returns line whene no route endpoint is found', function it(done) {
+    this.timeout(60000);
+
     const start = '8.991451263427734,61.496164239996375';
     const stop = '8.947162628173828,61.4678070658287';
 
@@ -66,7 +74,9 @@ describe('GET /routing', () => {
       .end(done);
   });
 
-  it('applies custom snapping sensitivity', done => {
+  it('applies custom snapping sensitivity', function it(done) {
+    this.timeout(60000);
+
     const start = '8.922786712646484,61.5062387475475';
     const stop = '8.97857666015625,61.50984184413987';
 
@@ -84,7 +94,9 @@ describe('GET /routing', () => {
       .end(done);
   });
 
-  it('returns route in correct direction', done => {
+  it('returns route in correct direction', function it(done) {
+    this.timeout(60000);
+
     const start = '10.144715309143066,59.82439292924618';
     const stop = '10.170164108276367,59.82230042984233';
 

@@ -34,6 +34,7 @@
   },
   "homepage": "https://github.com/Turistforeningen/Raido#readme",
   "dependencies": {
+    "@starefossen/express-cors": "^1.0.0",
     "@starefossen/http-error": "^1.0.0",
     "compression": "^1.6.2",
     "express": "^4.13.4",

@@ -1,11 +1,18 @@
 box: node:argon
 
-services:
-  - name: postgres
-    id: turistforeningen/pgrouting-n50:latest
-
 build:
+  services:
+    - name: postgres
+      id: turistforeningen/pgrouting-n50:latest
+
   steps:
+    - script:
+        name: "Wait for PostgreSQL to start"
+        code: |
+          apt-get update --no-install-recommends -y
+          apt-get install --no-install-recommends -y netcat
+          while ! nc -q 1 $POSTGRES_PORT_5432_TCP_ADDR $POSTGRES_PORT_5432_TCP_PORT </dev/null; do sleep 3; done
+
     - script:
         name: echo nodejs information
         code: |

@@ -24,6 +24,7 @@ describe('GET /routing', () => {
     this.timeout(60000);
 
     app.get(`/api/v1/routing?coords=${selhamar},${åsedalen}`)
+      .set('Origin', 'https://example1.com')
       .expect(200)
       .expect(nonEmptyGeometryCollection)
       .expect(res => {
@@ -36,6 +37,7 @@ describe('GET /routing', () => {
     this.timeout(60000);
 
     app.get(`/api/v1/routing?coords=${selhamar},${solrenningen}`)
+      .set('Origin', 'https://example1.com')
       .expect(200)
       .expect(nonEmptyGeometryCollection)
       .expect(res => {
@@ -48,6 +50,7 @@ describe('GET /routing', () => {
     this.timeout(60000);
 
     app.get(`/api/v1/routing?coords=${selhamar},${norddalen}`)
+      .set('Origin', 'https://example1.com')
       .expect(200)
       .expect(nonEmptyGeometryCollection)
       .expect(res => {
@@ -63,6 +66,7 @@ describe('GET /routing', () => {
     const stop = '8.947162628173828,61.4678070658287';
 
     app.get(`/api/v1/routing?coords=${start},${stop}`)
+      .set('Origin', 'https://example1.com')
       .expect(200)
       .expect(emptyGeometryCollection)
       .expect(res => {
@@ -83,6 +87,7 @@ describe('GET /routing', () => {
     const sensitivity = '50';
 
     app.get(`/api/v1/routing?coords=${start},${stop}&sensitivity=${sensitivity}`)
+      .set('Origin', 'https://example1.com')
       .expect(200)
       .expect(emptyGeometryCollection)
       .expect(res => {
@@ -101,6 +106,7 @@ describe('GET /routing', () => {
     const stop = '10.170164108276367,59.82230042984233';
 
     app.get(`/api/v1/routing?coords=${start},${stop}`)
+      .set('Origin', 'https://example1.com')
       .expect(200)
       .expect(nonEmptyGeometryCollection)
       .expect(res => {

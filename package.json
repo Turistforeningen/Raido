@@ -16,8 +16,8 @@
     "nsp": "nsp check",
     "semantic-release": "semantic-release",
     "start": "supervisor index.js",
-    "test": "mocha -bc --check-leaks -R tap -r test/support/env test/**",
-    "test:watch": "mocha -wbc --check-leaks -R progress -r test/support/env test/**",
+    "test": "mocha -b -c --check-leaks -R tap -r test/support/env test/**",
+    "test:watch": "mocha -w -b -c --check-leaks -R progress -r test/support/env test/**",
     "greenkeeper-postpublish": "greenkeeper-postpublish"
   },
   "repository": {

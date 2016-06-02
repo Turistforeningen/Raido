@@ -55,7 +55,7 @@ app.use(raven.middleware.express.errorHandler(sentry));
 
 app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   /* eslint-disable no-console */
-  if (err.status >= 500) {
+  if (err.code >= 500) {
     if (err.error) {
       console.error(err.error.message);
       console.error(err.error.stack);
@@ -66,8 +66,7 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   }
   /* eslint-enable */
 
-  res.status(err.status);
-  res.json(err.json());
+  res.status(err.code).json(err.toJSON());
 });
 
 if (!module.parent) {

@@ -15,4 +15,32 @@ Norwegian Ræið Icelandic Reið, Anglo-Saxon Rad.
 > ᚱ Ræið kveða rossom væsta;
 > Reginn sló sværðet bæzta.
 
+## Production
+
+```
+docker run --name postgres turistforeningen/pgrouting-n50:latest
+docker run --link postgres turistforeningen/raido:latest -p 8080
+```
+
+## Development
+
+### Requirements
+
+* Docker 1.10+
+* Docker Compose v1.4+
+
+### Start
+
+```
+docker-compose up
+```
+
+### Test
+
+```
+docker-compose run --rm node npm run test
+docker-compose run --rm node npm run lint
+```
+
+
 ## [MIT lisenced](https://github.com/Turistforeningen/Raidō/blob/master/LICENSE)

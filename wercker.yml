@@ -2,7 +2,7 @@ box: node:argon
 
 services:
   - name: postgres
-    id: turistforeningen/pgrouging-n50:latest
+    id: turistforeningen/pgrouting-n50:latest
 
 build:
   steps:

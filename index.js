@@ -29,10 +29,21 @@ app.use(responseTime());
 const corsHeaders = require('@starefossen/express-cors');
 app.use(corsHeaders.middleware);
 
-  return res.json({
-    message: 'System OK',
-  });
-});
+// Health Check
+const healthCheck = require('@starefossen/express-health');
+app.get('/CloudHealthCheck', healthCheck({
+  name: 'PostgreSQL',
+  check: cb => {
+    const query = 'SELECT * FROM pg_stat_database WHERE datname=\'postgres\'';
+    pg.query(query, (error, result) => {
+      if (error) {
+        cb(error);
+      } else {
+        cb(null, result.rows[0]);
+      }
+    });;
+  },
+}));
 
 app.use('/api/v1', require('./controllers/n50'));
 app.use((req, res, next) => next(new HttpError('Not Found', 404)));

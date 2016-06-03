@@ -13,7 +13,6 @@ const sentry = require('./lib/sentry');
 const express = require('express');
 const compression = require('compression');
 const responseTime = require('response-time');
-const corsHeaders = require('@starefossen/express-cors');
 const HttpError = require('@starefossen/http-error');
 
 const app = module.exports = express();
@@ -25,14 +24,10 @@ app.set('etag', false);
 
 app.use(compression());
 app.use(responseTime());
+
+// Cors Headers
+const corsHeaders = require('@starefossen/express-cors');
 app.use(corsHeaders.middleware);
-
-app.all('/CloudHealthCheck', (req, res) => {
-  res.status(200);
-
-  if (req.method === 'HEAD') {
-    return res.end();
-  }
 
   return res.json({
     message: 'System OK',

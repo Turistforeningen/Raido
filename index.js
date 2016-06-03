@@ -41,7 +41,7 @@ app.get('/CloudHealthCheck', healthCheck({
       } else {
         cb(null, result.rows[0]);
       }
-    });;
+    });
   },
 }));
 

@@ -15,6 +15,7 @@ services:
       - postgres
     environment:
       - NODE_ENV=development
+      - NPM_CONFIG_LOGLEVEL=silent
       - CORS_ALLOW_ORIGINS=example1.com,example2.com
       - VIRTUAL_HOST=raido.dnt.privat
       - VIRTUAL_PORT=8080

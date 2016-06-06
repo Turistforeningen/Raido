@@ -72,6 +72,7 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   res.status(err.code).json(err.toJSON());
 });
 
+/* istanbul ignore next */
 if (!module.parent) {
   pg.connect(err => {
     if (err) { throw err; }

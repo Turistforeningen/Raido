@@ -6,7 +6,7 @@ const app = request(require('../../'));
 
 describe('GET /', () => {
   it('returns 404 for index', done => {
-    app.get('/').expect(404, done);
+    app.get('/').set('Origin', 'https://example1.com').expect(404, done);
   });
 
   it('reject invalid cors domain', done => {
@@ -23,6 +23,7 @@ describe('GET /', () => {
 describe('GET /CloudHealthCheck', () => {
   it('returns PostgreSQL status', done => {
     app.get('/CloudHealthCheck')
+      .set('Origin', 'https://example2.com')
       .expect(200)
       .expect(res => {
         assert.equal(res.body.code, 200);

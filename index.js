@@ -52,6 +52,11 @@ app.use(raven.middleware.express.requestHandler(sentry));
 app.use(raven.middleware.express.errorHandler(sentry));
 
 app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
+  // Wrap non-http errors
+  if (!(err instanceof HttpError)) {
+    err = new HttpError(err.message, 500, err);
+  }
+
   /* eslint-disable no-console */
   if (err.code >= 500) {
     if (err.error) {

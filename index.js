@@ -37,7 +37,7 @@ app.get('/CloudHealthCheck', healthCheck({
     const query = 'SELECT * FROM pg_stat_database WHERE datname=\'postgres\'';
     pg.query(query, (error, result) => {
       if (error) {
-        cb(error);
+        cb(new HttpError('Postgres Query Failed', 500, error));
       } else {
         cb(null, result.rows[0]);
       }

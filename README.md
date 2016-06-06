@@ -1,7 +1,8 @@
 ![Raidō](https://raw.githubusercontent.com/Turistforeningen/Raido/master/assets/raido.png "Raidō")
 
 [![Build status](https://app.wercker.com/status/2ba1a86eacf6eb53f2efb58507f5de74/s "wercker status")](https://app.wercker.com/project/bykey/2ba1a86eacf6eb53f2efb58507f5de74)
-[![Codacy](https://img.shields.io/codacy/c1cc2fb578a44622b1712f65163bb1c5.svg "Codacy")](https://www.codacy.com/app/starefossen/Raido)
+[![Codacy grade](https://img.shields.io/codacy/grade/c1cc2fb578a44622b1712f65163bb1c5.svg "Codacy grade")](https://www.codacy.com/app/starefossen/Raido)
+[![Codacy coverage](https://img.shields.io/codacy/coverage/c1cc2fb578a44622b1712f65163bb1c5.svg "Codacy coverage")](https://www.codacy.com/app/starefossen/Raido)
 [![NPM downloads](https://img.shields.io/npm/dm/raido.svg "NPM downloads")](https://www.npmjs.com/package/raido)
 [![NPM version](https://img.shields.io/npm/v/raido.svg "NPM version")](https://www.npmjs.com/package/raido)
 [![Node version](https://img.shields.io/node/v/raido.svg "Node version")](https://www.npmjs.com/package/raido)

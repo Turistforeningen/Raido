@@ -32,12 +32,18 @@ app.use(corsHeaders.middleware);
 
 // Health Check
 app.get('/CloudHealthCheck', require('./controllers/health'));
+
+// Routing API
 app.use(require('./controllers/api'));
+
+// Not Found
 app.use((req, res, next) => next(new HttpError('Not Found', 404)));
 
+// Sentry error handler
 app.use(raven.middleware.express.requestHandler(sentry));
 app.use(raven.middleware.express.errorHandler(sentry));
 
+// Final error handler
 app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   // Wrap non-http errors
   if (!(err instanceof HttpError)) {

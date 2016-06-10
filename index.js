@@ -26,15 +26,17 @@ app.set('etag', false);
 app.use(compression());
 app.use(responseTime());
 
+const VIRTUAL_PATH = process.env.VIRTUAL_PATH || '';
+
 // Cors Headers
 const corsHeaders = require('@starefossen/express-cors');
 app.use(corsHeaders.middleware);
 
 // Health Check
-app.get('/CloudHealthCheck', require('./controllers/health'));
+app.get(`${VIRTUAL_PATH}/CloudHealthCheck`, require('./controllers/health'));
 
 // Routing API
-app.use(require('./controllers/api'));
+app.use(VIRTUAL_PATH, require('./controllers/api'));
 
 // Not Found
 app.use((req, res, next) => next(new HttpError('Not Found', 404)));

@@ -17,8 +17,7 @@ app.get('/routing', (req, res, next) => {
   const sensitivity = Math.min(parseInt(req.query.sensitivity || 2000, 10), 4000);
 
   const sql = `
-    SELECT
-      ST_AsGeoJSON(ST_Transform(geom, 4326)) as geojson, cost
+    SELECT ST_AsGeoJSON(ST_Transform(geom, 4326)) as geojson, cost
     FROM path(${coords.join(',')}, ${sensitivity})
     LIMIT 1;
   `;

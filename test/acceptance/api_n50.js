@@ -62,8 +62,8 @@ describe('GET /routing', () => {
   it('returns line whene no route endpoint is found', function it(done) {
     this.timeout(60000);
 
-    const start = '8.991451263427734,61.496164239996375';
-    const stop = '8.947162628173828,61.4678070658287';
+    const start = '2.87842,60.79134';
+    const stop = '0.08789,61.83541';
 
     app.get(`/api/v1/routing?coords=${start},${stop}`)
       .set('Origin', 'https://example1.com')
@@ -71,8 +71,8 @@ describe('GET /routing', () => {
       .expect(emptyGeometryCollection)
       .expect(res => {
         assert.deepEqual(res.body.coordinates, [
-          [8.991451263427734, 61.496164239996375],
-          [8.947162628173828, 61.4678070658287],
+          [2.87842, 60.79134],
+          [0.08789, 61.83541],
         ]);
       })
       .end(done);

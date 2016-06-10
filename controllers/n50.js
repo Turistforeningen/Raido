@@ -14,7 +14,7 @@ app.get('/routing', (req, res, next) => {
   // Make sure all the coords are float values
   const coords = req.query.coords.split(',').map(c => parseFloat(c, 10));
 
-  const sensitivity = Math.min(parseInt(req.query.sensitivity || 1000, 10), 2000);
+  const sensitivity = Math.min(parseInt(req.query.sensitivity || 2000, 10), 4000);
 
   const sql = `
     SELECT

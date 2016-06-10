@@ -25,3 +25,10 @@ services:
   postgres:
     image: turistforeningen/pgrouting-n50:latest
     network_mode: 'bridge'
+
+  psql:
+    image: turistforeningen/pgrouting-n50:latest
+    links:
+      - postgres
+    network_mode: 'bridge'
+    command: psql -U postgres -h postgres -d postgres

@@ -33,11 +33,6 @@ build:
           npm run cover
           cat ./coverage/lcov.info | npm run codacy-coverage
 
-    - script:
-        name: node security project
-        code: |
-          npm run nsp
-
   after-steps:
     - turistforeningen/slack-notifier:
         url: $SLACK_WEBHOOK_URL

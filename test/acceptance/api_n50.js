@@ -23,7 +23,7 @@ describe('GET /routing', () => {
   it('returns route from Selhamar to Åsedalen', function it(done) {
     this.timeout(60000);
 
-    app.get(`/api/v1/routing?coords=${selhamar},${åsedalen}`)
+    app.get(`/routing?coords=${selhamar},${åsedalen}`)
       .set('Origin', 'https://example1.com')
       .expect(200)
       .expect(nonEmptyGeometryCollection)
@@ -36,7 +36,7 @@ describe('GET /routing', () => {
   it('returns route from Selhamar to Solrenningen', function it(done) {
     this.timeout(60000);
 
-    app.get(`/api/v1/routing?coords=${selhamar},${solrenningen}`)
+    app.get(`/routing?coords=${selhamar},${solrenningen}`)
       .set('Origin', 'https://example1.com')
       .expect(200)
       .expect(nonEmptyGeometryCollection)
@@ -49,7 +49,7 @@ describe('GET /routing', () => {
   it('returns route from Selhamar to Norddalen', function it(done) {
     this.timeout(60000);
 
-    app.get(`/api/v1/routing?coords=${selhamar},${norddalen}`)
+    app.get(`/routing?coords=${selhamar},${norddalen}`)
       .set('Origin', 'https://example1.com')
       .expect(200)
       .expect(nonEmptyGeometryCollection)
@@ -65,7 +65,7 @@ describe('GET /routing', () => {
     const start = '2.87842,60.79134';
     const stop = '0.08789,61.83541';
 
-    app.get(`/api/v1/routing?coords=${start},${stop}`)
+    app.get(`/routing?coords=${start},${stop}`)
       .set('Origin', 'https://example1.com')
       .expect(200)
       .expect(emptyGeometryCollection)
@@ -86,7 +86,7 @@ describe('GET /routing', () => {
 
     const sensitivity = '50';
 
-    app.get(`/api/v1/routing?coords=${start},${stop}&sensitivity=${sensitivity}`)
+    app.get(`/routing?coords=${start},${stop}&sensitivity=${sensitivity}`)
       .set('Origin', 'https://example1.com')
       .expect(200)
       .expect(emptyGeometryCollection)
@@ -105,7 +105,7 @@ describe('GET /routing', () => {
     const start = '10.144715309143066,59.82439292924618';
     const stop = '10.170164108276367,59.82230042984233';
 
-    app.get(`/api/v1/routing?coords=${start},${stop}`)
+    app.get(`/routing?coords=${start},${stop}`)
       .set('Origin', 'https://example1.com')
       .expect(200)
       .expect(nonEmptyGeometryCollection)

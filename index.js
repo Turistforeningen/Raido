@@ -32,7 +32,7 @@ app.use(corsHeaders.middleware);
 
 // Health Check
 app.get('/CloudHealthCheck', require('./controllers/health'));
-app.use('/api/v1', require('./controllers/n50'));
+app.use(require('./controllers/n50'));
 app.use((req, res, next) => next(new HttpError('Not Found', 404)));
 
 app.use(raven.middleware.express.requestHandler(sentry));

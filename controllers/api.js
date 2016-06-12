@@ -14,11 +14,16 @@ app.get('/routing', (req, res, next) => {
   // Make sure all the coords are float values
   const coords = req.query.coords.split(',').map(c => parseFloat(c, 10));
 
-  const sensitivity = Math.min(parseInt(req.query.sensitivity || 2000, 10), 4000);
+  const path_buffer = Math.min(parseInt(req.query.path_buffer || 2000, 10), 4000);
+  const point_buffer = Math.min(parseInt(req.query.point_buffer || 10, 10), 100);
 
   const sql = `
     SELECT ST_AsGeoJSON(ST_Transform(geom, 4326)) as geojson, cost
-    FROM path(${coords.join(',')}, ${sensitivity})
+    FROM path(
+      ${coords.join(',')},
+      path_buffer:=${path_buffer},
+      point_buffer:=${point_buffer}
+    )
     LIMIT 1;
   `;
 

@@ -111,8 +111,8 @@ describe('GET /routing', () => {
       .expect(nonEmptyGeometryCollection)
       .expect(res => {
         assert.deepEqual(res.body.geometries[0].coordinates[0], [
-          10.1446959421948,
-          59.8243679990877,
+          10.1446959429242,
+          59.8243680000267,
         ]);
       })
       .end(done);

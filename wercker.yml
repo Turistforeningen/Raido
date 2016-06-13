@@ -1,4 +1,4 @@
-box: node:argon
+box: node:6
 
 build:
   services:

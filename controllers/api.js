@@ -26,11 +26,13 @@ app.get('/routing', (req, res, next) => {
   const path_buffer = Math.min(parseInt(req.query.path_buffer || 2000, 10), 4000);
   const point_buffer = Math.min(parseInt(req.query.point_buffer || 10, 10), 100);
 
-  const sql = `
-    SELECT ST_AsGeoJSON(ST_Transform(geom, 4326)) as geojson, cost
+  const sql = pg.SQL`
+    SELECT
+      cost,
+      ST_AsGeoJSON(ST_Transform(geom, 4326)) as geometry
     FROM path(
-      ${source.join(',')},
-      ${target.join(',')},
+      ${source[0]}, ${source[1]},
+      ${target[0]}, ${target[1]},
       path_buffer:=${path_buffer},
       point_buffer:=${point_buffer}
     )

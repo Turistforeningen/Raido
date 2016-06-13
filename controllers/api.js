@@ -23,8 +23,8 @@ app.get('/routing', (req, res, next) => {
     return next(new HttpError('Missing or invalid coordinates', 400));
   }
 
-  const path_buffer = Math.min(parseInt(req.query.path_buffer || 2000, 10), 4000);
-  const point_buffer = Math.min(parseInt(req.query.point_buffer || 10, 10), 100);
+  const path_buffer = Math.min(parseInt(req.query.path_buffer || 1000, 10), 4000);
+  const point_buffer = Math.min(parseInt(req.query.point_buffer || 10, 10), 1000);
 
   const sql = pg.SQL`
     SELECT
@@ -42,23 +42,24 @@ app.get('/routing', (req, res, next) => {
   return pg.query(sql, (err, result) => {
     if (err) { return next(new HttpError('Database Query Failed', 500, err)); }
 
-    if (!result.rows.length || !result.rows[0].geojson) {
-      return res.json({ type: 'LineString', coordinates: [source, target]});
-    }
-
-    const geojson = {
+    const collection = {
       type: 'GeometryCollection',
       geometries: [],
     };
 
-    result.rows.forEach((row) => {
-      const geometry = JSON.parse(row.geojson);
-      geometry.properties = { cost: row.cost };
+    if (!result.rows.length || !result.rows[0].geometry) {
+      return res.json(collection);
+    }
 
-      geojson.geometries.push(geometry);
+    result.rows.forEach((row) => {
+      collection.geometries.push({
+        type: 'Feature',
+        geometry: JSON.parse(row.geometry),
+        properties: { cost: row.cost },
+      });
     });
 
-    return res.json(geojson);
+    return res.json(collection);
   });
 });
 

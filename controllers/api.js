@@ -7,15 +7,21 @@ const app = express();
 const HttpError = require('@starefossen/http-error');
 
 app.get('/routing', (req, res, next) => {
-  if (!req.query.source || req.query.source.split(',').length !== 2
-    || !req.query.target || req.query.target.split(',').length !== 2
-  ) {
+  // Convert all coordinates to propper float values
+  const source = (req.query.source || '')
+    .split(',')
+    .map(coordinate => parseFloat(coordinate, 10))
+    .filter(coordinate => !isNaN(coordinate));
+
+  const target = (req.query.target || '')
+    .split(',')
+    .map(coordinate => parseFloat(coordinate, 10))
+    .filter(coordinate => !isNaN(coordinate));
+
+  // Validate required source and target parameters
+  if (source.length !== 2 || target.length !== 2) {
     return next(new HttpError('Missing or invalid coordinates', 400));
   }
-
-  // Make sure all the coords are float values
-  const source = req.query.source.split(',').map(c => parseFloat(c, 10));
-  const target = req.query.target.split(',').map(c => parseFloat(c, 10));
 
   const path_buffer = Math.min(parseInt(req.query.path_buffer || 2000, 10), 4000);
   const point_buffer = Math.min(parseInt(req.query.point_buffer || 10, 10), 100);

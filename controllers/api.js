@@ -23,8 +23,8 @@ app.get('/routing', (req, res, next) => {
     return next(new HttpError('Missing or invalid coordinates', 400));
   }
 
-  const path_buffer = Math.min(parseInt(req.query.path_buffer || 1000, 10), 4000);
-  const point_buffer = Math.min(parseInt(req.query.point_buffer || 10, 10), 1000);
+  const pathBuffer = Math.min(parseInt(req.query.path_buffer || 1000, 10), 4000);
+  const pointBuffer = Math.min(parseInt(req.query.point_buffer || 10, 10), 1000);
 
   const sql = pg.SQL`
     SELECT
@@ -33,8 +33,8 @@ app.get('/routing', (req, res, next) => {
     FROM path(
       ${source[0]}, ${source[1]},
       ${target[0]}, ${target[1]},
-      path_buffer:=${path_buffer},
-      point_buffer:=${point_buffer}
+      path_buffer:=${pathBuffer},
+      point_buffer:=${pointBuffer}
     )
     LIMIT 1;
   `;

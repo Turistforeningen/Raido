@@ -57,6 +57,8 @@ describe('GET /routing', () => {
     const valid = points.cabin.selhamar;
 
     it(`returns 400 error for source="${param}"`, function it(done) {
+      this.timeout(60000);
+
       app.get(`/routing?source=${param}&target=${valid}`)
         .expect(400)
         .expect(missingOrInvalidCoorinates)
@@ -64,6 +66,8 @@ describe('GET /routing', () => {
     });
 
     it(`returns 400 error for target="${param}"`, function it(done) {
+      this.timeout(60000);
+
       app.get(`/routing?source=${valid}&target=${param}`)
         .expect(400)
         .expect(missingOrInvalidCoorinates)
@@ -83,12 +87,12 @@ describe('GET /routing', () => {
     source: 'Selhamar',
     target: 'Norddalen',
     cost: 35000,
-  }].forEach(({source, target, cost}) => {
-    it(`returns route from ${source} to ${target}`, function it(done) {
+  }].forEach(({ source: sourceName, target: targetName, cost }) => {
+    it(`returns route from ${sourceName} to ${targetName}`, function it(done) {
       this.timeout(60000);
 
-      source = points.cabin[source.toLowerCase()];
-      target = points.cabin[target.toLowerCase()];
+      const source = points.cabin[sourceName.toLowerCase()];
+      const target = points.cabin[targetName.toLowerCase()];
 
       app.get(`/routing?source=${source}&target=${target}`)
         .expect(200)

@@ -108,7 +108,7 @@ describe('GET /routing', () => {
     const source = points.point['north-of-vardadalsbu'];
     const target = points.point['south-of-vardadalsbu'];
 
-    app.get(`${url}?source=${source}&target=${target}`)
+    app.get(`${url}?source=${source}&target=${target}&path_buffer=1000`)
       .expect(200)
       .expect(emptyGeometryCollection)
       .end(done);

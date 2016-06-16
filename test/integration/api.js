@@ -199,4 +199,18 @@ describe('GET /routing', () => {
           .end(done);
       });
   });
+
+  it('returns route for bbox bounding box buffer', function it(done) {
+    this.timeout(60000);
+
+    const source = points.cabin.selhamar;
+    const target = points.cabin.norddalen;
+    const bbox = [5.41213, 60.87099, 6.59591, 61.07090].join(',');
+
+    app.get(`/routing?source=${source}&target=${target}&bbox=${bbox}&path_buffer=0`)
+      .expect(200)
+      .expect(nonEmptyGeometryCollection)
+      .expect(routeApproxCost(35000, 0.1))
+      .end(done);
+  });
 });

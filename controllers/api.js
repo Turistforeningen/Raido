@@ -23,8 +23,21 @@ app.get('/routing', (req, res, next) => {
     return next(new HttpError('Missing or invalid coordinates', 400));
   }
 
+  const bbox = (req.query.bbox || '')
+    .split(',')
+    .map(coordinate => parseFloat(coordinate, 10))
+    .filter(coordinate => !isNaN(coordinate));
+
+  // Validate bbox parameter
+  if (!(bbox.length === 4 || bbox.length === 0)) {
+    return next(new HttpError('Missing or invalid bbox coordinates', 400));
+  }
+
   const pathBuffer = Math.min(parseInt(req.query.path_buffer || 2000, 10), 4000);
   const pointBuffer = Math.min(parseInt(req.query.point_buffer || 10, 10), 1000);
+
+  // Format bbox to propper PostgreSQL array
+  const bboxPgArr = `{${bbox.join(',')}}`;
 
   const sql = pg.SQL`
     SELECT
@@ -36,7 +49,8 @@ app.get('/routing', (req, res, next) => {
       ${target[0]}::double precision,
       ${target[1]}::double precision,
       path_buffer:=${pathBuffer}::integer,
-      point_buffer:=${pointBuffer}::integer
+      point_buffer:=${pointBuffer}::integer,
+      bbox:=${bboxPgArr}::double precision[]
     )
     LIMIT 1;
   `;

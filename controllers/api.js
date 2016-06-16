@@ -31,10 +31,12 @@ app.get('/routing', (req, res, next) => {
       cost,
       ST_AsGeoJSON(ST_Transform(geom, 4326)) as geometry
     FROM path(
-      ${source[0]}, ${source[1]},
-      ${target[0]}, ${target[1]},
-      path_buffer:=${pathBuffer},
-      point_buffer:=${pointBuffer}
+      ${source[0]}::double precision,
+      ${source[1]}::double precision,
+      ${target[0]}::double precision,
+      ${target[1]}::double precision,
+      path_buffer:=${pathBuffer}::integer,
+      point_buffer:=${pointBuffer}::integer
     )
     LIMIT 1;
   `;

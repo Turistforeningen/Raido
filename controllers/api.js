@@ -35,6 +35,7 @@ app.get('/routing', (req, res, next) => {
 
   const pathBuffer = Math.min(parseInt(req.query.path_buffer || 2000, 10), 4000);
   const pointBuffer = Math.min(parseInt(req.query.point_buffer || 10, 10), 1000);
+  const limit = Math.min(parseInt(req.query.limit || 1, 10), 3);
 
   // Format bbox to propper PostgreSQL array
   const bboxPgArr = `{${bbox.join(',')}}`;
@@ -50,9 +51,10 @@ app.get('/routing', (req, res, next) => {
       ${target[1]}::double precision,
       path_buffer:=${pathBuffer}::integer,
       point_buffer:=${pointBuffer}::integer,
-      bbox:=${bboxPgArr}::double precision[]
+      bbox:=${bboxPgArr}::double precision[],
+      targets:=${limit}::integer
     )
-    LIMIT 1;
+    LIMIT ${limit};
   `;
 
   return pg.query(sql, (err, result) => {

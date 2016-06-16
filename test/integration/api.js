@@ -4,14 +4,11 @@ const assert = require('assert');
 const request = require('supertest');
 const app = request(require('../../'));
 
-function nonEmptyGeometryCollection(res) {
-  assert.equal(res.body.type, 'GeometryCollection');
-  assert.equal(res.body.geometries.length, 1);
-}
-
-function emptyGeometryCollection(res) {
-  assert.equal(res.body.type, 'GeometryCollection');
-  assert.equal(res.body.geometries.length, 0);
+function geometryCollections(n) {
+  return res => {
+    assert.equal(res.body.type, 'GeometryCollection');
+    assert.equal(res.body.geometries.length, n);
+  };
 }
 
 function missingOrInvalidCoorinates(res) {
@@ -23,8 +20,10 @@ function missingOrInvalidCoorinates(res) {
 
 function routeApproxCost(cost, margin) {
   return res => {
-    assert(res.body.geometries[0].properties.cost > cost * (1 - margin));
-    assert(res.body.geometries[0].properties.cost < cost * (1 + margin));
+    res.body.geometries.forEach(geometry => {
+      assert(geometry.properties.cost > cost * (1 - margin));
+      assert(geometry.properties.cost < cost * (1 + margin));
+    });
   };
 }
 
@@ -96,7 +95,7 @@ describe('GET /routing', () => {
 
       app.get(`/routing?source=${source}&target=${target}`)
         .expect(200)
-        .expect(nonEmptyGeometryCollection)
+        .expect(geometryCollections(1))
         .expect(routeApproxCost(cost, 0.1))
         .end(done);
     });
@@ -110,7 +109,7 @@ describe('GET /routing', () => {
 
     app.get(`${url}?source=${source}&target=${target}&path_buffer=1000`)
       .expect(200)
-      .expect(emptyGeometryCollection)
+      .expect(geometryCollections(0))
       .end(done);
   });
 
@@ -122,7 +121,7 @@ describe('GET /routing', () => {
 
     app.get(`${url}?source=${source}&target=${target}&path_buffer=4000`)
       .expect(200)
-      .expect(nonEmptyGeometryCollection)
+      .expect(geometryCollections(1))
       .end(done);
   });
 
@@ -134,7 +133,7 @@ describe('GET /routing', () => {
 
     app.get(`${url}?source=${source}&target=${target}`)
       .expect(200)
-      .expect(emptyGeometryCollection)
+      .expect(geometryCollections(0))
       .end(done);
   });
 
@@ -146,7 +145,7 @@ describe('GET /routing', () => {
 
     app.get(`${url}?source=${source}&target=${target}&point_buffer=1000`)
       .expect(200)
-      .expect(nonEmptyGeometryCollection)
+      .expect(geometryCollections(1))
       .end(done);
   });
 
@@ -158,7 +157,7 @@ describe('GET /routing', () => {
 
     app.get(`${url}?source=${source}&target=${target}`)
       .expect(200)
-      .expect(emptyGeometryCollection)
+      .expect(geometryCollections(0))
       .end(done);
   });
 
@@ -170,7 +169,7 @@ describe('GET /routing', () => {
 
     app.get(`${url}?source=${source}&target=${target}&point_buffer=1000`)
       .expect(200)
-      .expect(nonEmptyGeometryCollection)
+      .expect(geometryCollections(1))
       .end(done);
   });
 
@@ -182,7 +181,7 @@ describe('GET /routing', () => {
 
     app.get(`/routing?source=${source}&target=${target}`)
       .expect(200)
-      .expect(nonEmptyGeometryCollection)
+      .expect(geometryCollections(1))
       .end((err1, res1) => {
         assert.ifError(err1);
 
@@ -190,7 +189,7 @@ describe('GET /routing', () => {
 
         app.get(`/routing?source=${target}&target=${source}`)
           .expect(200)
-          .expect(nonEmptyGeometryCollection)
+          .expect(geometryCollections(1))
           .expect(res2 => {
             const line2 = res2.body.geometries[0].geometry.coordinates.reverse();
 
@@ -209,8 +208,21 @@ describe('GET /routing', () => {
 
     app.get(`/routing?source=${source}&target=${target}&bbox=${bbox}&path_buffer=0`)
       .expect(200)
-      .expect(nonEmptyGeometryCollection)
+      .expect(geometryCollections(1))
       .expect(routeApproxCost(35000, 0.1))
+      .end(done);
+  });
+
+  it('returns multiple shortes path routes', function it(done) {
+    this.timeout(60000);
+
+    const source = points.cabin.selhamar;
+    const target = points.cabin.åsedalen;
+
+    app.get(`/routing?source=${source}&target=${target}&limit=3`)
+      .expect(200)
+      .expect(geometryCollections(2))
+      .expect(routeApproxCost(13000, 0.1))
       .end(done);
   });
 });

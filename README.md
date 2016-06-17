@@ -44,7 +44,7 @@ if a route is found.
     "type": "LineString",
     "coordinates": [...],
     "properties": {
-      cost: 1510.05825002283
+      "cost": 1510.05825002283
     }
   }]
 }
@@ -63,16 +63,17 @@ be returned.
     "type": "LineString",
     "coordinates": [...],
     "properties": {
-      cost: 1510.05825002283
+      "cost": 1510.05825002283
     }
   },{
     "type": "LineString",
     "coordinates": [...],
     "properties": {
-      cost: 1610.06825002284
+      "cost": 1610.06825002284
     }
   }]
 }
+```
 
 **Route not found**
 

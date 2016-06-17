@@ -5,7 +5,7 @@ const app = request(require('../../'));
 
 describe('GET /', () => {
   it('returns 404 for index', done => {
-    app.get('/').set('Origin', 'https://example1.com').expect(404, done);
+    app.get('/').expect(404, done);
   });
 
   it('reject invalid cors domain', done => {

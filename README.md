@@ -25,13 +25,17 @@ Anglo-Saxon Rad.
 
 ### GET /v1/routing
 
-* **string** `cords` - A to B coordinates on the format `x1,y1,x2,y2`
-* **number** `sensitivity` - routing sensitivity / buffer (**default** `2000`)
+* **string** `source` - start point coordinate on the format `x,y`
+* **string** `target` - end point coordinate on the format `x,y`
+* **number** `path_buffer` - route sensitivity / buffer (**default** `2000`)
+* **number** `point_buffer` - point sensitivity / buffer (**default** `10`)
+* **string** `bbox` - bbox bounding bounds on the format `x1,y1,x2,y2`
+* **number** `limit` - max number of shortest path to return (**default** `1`)
 
-Return the shortest path from coordinate A to coordinate B. Will return a
-`GeometryCollection` if a route is found.
+Return shortest path from `source` to `target`. Returns a `GeometryCollection`
+if a route is found.
 
-**Return**
+**Returned route**
 
 ```json
 {
@@ -46,18 +50,39 @@ Return the shortest path from coordinate A to coordinate B. Will return a
 }
 ```
 
-**Route not found**
+**Mutliple routes**
 
-If the point A or B can not be found or a route between them could not be
-found the routing will return a `LineString` between the two points.
+If you want multiple shortest path you can use the `limit` query parameter to
+control the number of routes returned. By default only the shortest route will
+be returned.
 
 ```json
 {
-  "type": "LineString",
-  "coordinates": [
-    [ 8.922786712646484, 61.5062387475475 ],
-    [ 8.97857666015625, 61.50984184413987 ]
-  ]
+  "type": "GeometryCollection",
+  "geometries": [{
+    "type": "LineString",
+    "coordinates": [...],
+    "properties": {
+      cost: 1510.05825002283
+    }
+  },{
+    "type": "LineString",
+    "coordinates": [...],
+    "properties": {
+      cost: 1610.06825002284
+    }
+  }]
+}
+
+**Route not found**
+
+If the `source` or `target` points can not be found or a route between them
+could not be found the routing will return an empty `GeometryCollection`.
+
+```json
+{
+  "type": "GeometryCollection",
+  "geometries": []
 }
 ```
 

@@ -21,6 +21,46 @@ Anglo-Saxon Rad.
 > ᚱ Ræið kveða rossom væsta;
 > Reginn sló sværðet bæzta.
 
+## API
+
+### GET /v1/routing
+
+* **string** `cords` - A to B coordinates on the format `x1,y1,x2,y2`
+* **number** `sensitivity` - routing sensitivity / buffer (**default** `2000`)
+
+Return the shortest path from coordinate A to coordinate B. Will return a
+`GeometryCollection` if a route is found.
+
+**Return**
+
+```json
+{
+  "type": "GeometryCollection",
+  "geometries": [{
+    "type": "LineString",
+    "coordinates": [...],
+    "properties": {
+      cost: 1510.05825002283
+    }
+  }]
+}
+```
+
+**Route not found**
+
+If the point A or B can not be found or a route between them could not be
+found the routing will return a `LineString` between the two points.
+
+```json
+{
+  "type": "LineString",
+  "coordinates": [
+    [ 8.922786712646484, 61.5062387475475 ],
+    [ 8.97857666015625, 61.50984184413987 ]
+  ]
+}
+```
+
 ## Production
 
 ```

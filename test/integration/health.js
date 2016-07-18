@@ -1,4 +1,5 @@
 'use strict';
+/* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}] */
 
 const assert = require('assert');
 const request = require('supertest');

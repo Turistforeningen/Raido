@@ -39,6 +39,7 @@
     "@starefossen/http-error": "^1.0.0",
     "compression": "^1.6.2",
     "express": "^4.13.4",
+    "newrelic": "^1.28.0",
     "pg": "^6.0.0",
     "raven": "^0.11.0",
     "response-time": "^2.3.1"

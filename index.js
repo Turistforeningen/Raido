@@ -1,13 +1,5 @@
 'use strict';
 
-/* istanbul ignore if */
-if (process.env.NODE_ENV === 'production') {
-  /* eslint-disable no-console */
-  console.log('Starting newrelic application monitoring');
-  /* eslint-enable */
-  require('newrelic'); // eslint-disable-line global-require
-}
-
 const raven = require('raven');
 const sentry = require('./lib/sentry');
 

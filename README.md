@@ -107,6 +107,28 @@ docker run --link postgres turistforeningen/raido:latest -p 8080
 docker-compose up
 ```
 
+When starting the project for the first time, you'll see the following error while the database is
+initalized.
+
+```
+/usr/src/app/index.js:73
+    if (err) { throw err; }
+               ^
+
+Error: connect ECONNREFUSED 172.17.0.9:5432
+    at Object.exports._errnoException (util.js:1034:11)
+    at exports._exceptionWithHostPort (util.js:1057:20)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1096:14)
+Program node index.js exited with code 1
+```
+
+Wait a few minutes for the init script to finish, and the node service to connect to Postgres.
+
+```
+Connected to Postgres Database
+Server listening on port 8080
+```
+
 ### Test
 
 ```

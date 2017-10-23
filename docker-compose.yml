@@ -18,7 +18,7 @@ services:
       - NPM_CONFIG_LOGLEVEL=silent
       - NPM_CONFIG_PROGRESS=false
       - NPM_CONFIG_SPIN=false
-      - VIRTUAL_HOST=raido.app.dnt.privat
+      - VIRTUAL_HOST=raido.app.dnt.local
       - VIRTUAL_PORT=8080
     command: npm start
 

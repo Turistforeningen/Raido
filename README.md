@@ -108,7 +108,7 @@ docker-compose up
 ```
 
 When starting the project for the first time, you'll see the following error while the database is
-initalized.
+initialized.
 
 ```
 /usr/src/app/index.js:73

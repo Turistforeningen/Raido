@@ -11,7 +11,7 @@ jobs:
            command: |
              apt-get update --no-install-recommends -y
              apt-get install --no-install-recommends -y netcat
-             while ! nc -q 1 $POSTGRES_PORT_5432_TCP_ADDR $POSTGRES_PORT_5432_TCP_PORT </dev/null; do sleep 3; done
+             while ! nc -q 1 localhost 5432 </dev/null; do sleep 3; done
       - run: 
           name: echo nodejs information
           command: |
@@ -161,6 +161,4 @@ workflows:
       #     filters:
       #       branches:
       #         only:
-      #           - deploy-prod          
-
-      
+      #           - deploy-prod                

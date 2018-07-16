@@ -93,12 +93,12 @@ ingress:
     - raido.dev.dnt.org
 
   tls:
-   - secretName: raido-dev-tls
+   - secretName: dev-beta-dnt-org-tls
      hosts:
        - raido.dev.dnt.org
 
 cert:
-  enabled: true
+  enabled: false
   issuer: "letsencrypt-production"
 
 raido_v1_resources: 

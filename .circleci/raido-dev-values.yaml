@@ -10,15 +10,15 @@ image:
   raido_v1:
     repository: eu.gcr.io/dnt-docker-registry-public/raido
     tag: "latest"
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
   raido_v2:
     repository: eu.gcr.io/dnt-docker-registry-public/raido
     tag: "latest"
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
   raido_postgres:
     repository: turistforeningen/pgrouting-n50
     tag: "16-06-14"
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
 
 # pod autoscaling
 # for autoscaling to work you must specify cpu requests for the pods you want to autoscale
